@@ -9,8 +9,8 @@ OBJ_DIR = .objs/
 INC_DIR = include/
 
 # Archivos fuente (.c)
-SOURCES = philo.c philosophers.c forks.c time_utils.c \
-		  mutex_utils.c logger.c parse_args.c
+SOURCES = main.c philosophers.c utils.c parse_args.c \
+			time_utils.c mutex_utils.c
 SRCS = $(addprefix $(SRC_DIR), $(SOURCES))
 
 # Archivos objeto (.o)
@@ -34,13 +34,13 @@ all: $(NAME)
 
 # Regla para compilar el ejecutable
 $(NAME): $(OBJECTS)
-	@echo -e "$(GREEN)Compilando el proyecto...$(RESET)"
-	$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
-	@echo -e "$(GREEN)Compilación completa.$(RESET)"
+	@printf "$(GREEN)Compilando el proyecto...\n$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
+	@printf "$(GREEN)Compilación completa.\n$(RESET)"
 
 # Compilación de archivos objeto en el directorio OBJ_DIR
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c | $(OBJ_DIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Crear el directorio de objetos si no existe
 $(OBJ_DIR):
@@ -49,11 +49,11 @@ $(OBJ_DIR):
 # Limpieza de archivos generados
 clean:
 	@rm -rf $(OBJ_DIR)
-	@echo -e "$(YELLOW)Archivos objeto limpiados.$(RESET)"
+	@printf "$(YELLOW)Archivos objeto limpiados.\n$(RESET)"
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo -e "$(RED)Todo limpio.$(RESET)"
+	@printf "$(RED)Todo limpio.\n$(RESET)"
 
 re: fclean all
 
