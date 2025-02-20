@@ -6,15 +6,14 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:35:21 by laufarin          #+#    #+#             */
-/*   Updated: 2025/02/18 16:18:56 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/02/20 15:32:20 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int parse_args(int argc, char **argv, t_resources *resources)
+int parse_args(int argc, char **argv)
 {
-	(void)resources;//quitar
 	if (argc < 5 || argc > 6)
 	{
 		printf("Error: Incorrect number of arguments\n");

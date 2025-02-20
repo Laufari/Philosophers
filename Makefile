@@ -10,7 +10,8 @@ INC_DIR = include/
 
 # Archivos fuente (.c)
 SOURCES = main.c philosophers.c utils.c parse_args.c \
-			time_utils.c mutex_utils.c
+			time_utils.c mutex_utils.c init.c\
+			free_resources.c philos_init.c 
 SRCS = $(addprefix $(SRC_DIR), $(SOURCES))
 
 # Archivos objeto (.o)

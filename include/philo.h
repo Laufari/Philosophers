@@ -31,7 +31,11 @@ typedef struct  s_resources
 }                       t_resources;
 
 int     is_valid_num(char *str);
-int parse_args(int argc, char **argv, t_resources *resources);
+int parse_args(int argc, char **argv);
+void    init(t_resources *resources, char **argv);
+void    free_resources(pthread_t *thr, t_philosopher *phils);
+int mem_hilos(pthread_t **threads, t_philosopher **philos, t_resources *resources);
+int create_philos(pthread_t **threads, t_philosopher **philos, t_resources *resources);
 
 //UTILS
 

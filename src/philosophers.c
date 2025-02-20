@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 17:42:08 by laufarin          #+#    #+#             */
-/*   Updated: 2025/02/18 16:18:57 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:22:14 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,14 @@ void	*philosopher_life(void *arg)
 		printf("%ld Philosopher %d is thinking\n", get_time(), philosopher->id);
 		usleep(philosopher->resources->time_to_sleep * 1000);//time_to_sleep esta en milisegundo y usleep en microsegundos por eso mult. x 1000
     }
+
+   // pthread_mutex_lock(philosopher->id-1)
+
+    	// printf("%ld Philosopher %d is thinking\n", get_time(), philosopher->id);
+		// usleep(philosopher->resources->time_to_sleep * 1000);//time_to_sleep esta en milisegundo y usleep en microsegundos por eso mult. x 1000
+    // }	printf("%ld Philosopher %d is thinking\n", get_time(), philosopher->id);
+		// usleep(philosopher->resources->time_to_sleep * 1000);//time_to_sleep esta en milisegundo y usleep en microsegundos por eso mult. x 1000
+    // }	printf("%ld Philosopher %d is thinking\n", get_time(), philosopher->id);
+		// usleep(philosopher->resources->time_to_sleep * 1000);//time_to_sleep esta en milisegundo y usleep en microsegundos por eso mult. x 1000
+    // }
 }
