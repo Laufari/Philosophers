@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 15:54:24 by laufarin          #+#    #+#             */
-/*   Updated: 2025/02/20 17:25:52 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/02/24 20:31:02 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,15 @@ int main(int argc, char **argv)
     // Primero, valida los argumentos
     if (parse_args(argc, argv))
         return (1);
-
+    // resources = malloc(sizeof(t_resources));
+    //if (!resources) 
+    //{
+      //  printf("Error allocating memory for resources.\n");
+        //return (1);
+    //}
     // Inicializa los valores en la estructura `resources`
-    init(&resources, argv);
-
+    init_resources(&resources, argv);
+    init_forks(&resources);
 
     // 🟢 Reservar memoria antes de crear los filósofos
     if (mem_hilos(&threads, &philos, &resources) != 0)
@@ -34,7 +39,7 @@ int main(int argc, char **argv)
         return (1);
 
     // 🟢 Liberar memoria al final
-    free_resources(threads, philos);
+    free_resources(threads, philos, &resources);
 
     return (0);
 }

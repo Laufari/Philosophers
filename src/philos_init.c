@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 15:19:08 by laufarin          #+#    #+#             */
-/*   Updated: 2025/02/20 17:59:38 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/02/24 20:56:59 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,15 @@ int mem_hilos(pthread_t **threads, t_philosopher **philos, t_resources *resource
     if(!(*threads) || !(*philos))
     {
         printf("Error allocating memory for philosophers or threads.\n");
-        free_resources(*threads, *philos);
+        free_resources(*threads, *philos, resources);
         return (1);
     }
     while(i < resources->number_of_philosophers)
     {
         pthread_mutex_init(&resources->forks[i], NULL);
+        // Inicializamos los punteros de los filósofos a los tenedores
+        (*philos)[i].left_fork = &resources->forks[i];  // Tenedor izquierdo
+        (*philos)[i].right_fork = &resources->forks[(i + 1) % resources->number_of_philosophers];  // Tenedor derecho
         i++;
     }
     return(0);
@@ -49,7 +52,7 @@ int create_philos(pthread_t **threads, t_philosopher **philos, t_resources *reso
 		if (pthread_create(&(*threads)[i], NULL, philosopher_life, (void *)&(*philos)[i]) != 0)
 		{
 			printf("Error creating thread.\n");
-			free_resources(*threads, *philos);
+			free_resources(*threads, *philos, resources);
 			return (1);
 		}
 		i++;

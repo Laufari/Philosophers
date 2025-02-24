@@ -32,10 +32,11 @@ typedef struct  s_resources
 
 int     is_valid_num(char *str);
 int parse_args(int argc, char **argv);
-void    init(t_resources *resources, char **argv);
-void    free_resources(pthread_t *thr, t_philosopher *phils);
+void    init_resources(t_resources *resources, char **argv);
+void    free_resources(pthread_t *thr, t_philosopher *phils, t_resources *resources);
 int mem_hilos(pthread_t **threads, t_philosopher **philos, t_resources *resources);
 int create_philos(pthread_t **threads, t_philosopher **philos, t_resources *resources);
+int	init_forks(t_resources *resources);
 
 //UTILS
 
@@ -45,7 +46,7 @@ int	is_space(char c);
 //PHILOSOPHERS
 
 void	*philosopher_life(void *arg);
-
+int monitor_philosopher(t_philosopher *philosopher, t_resources *resources);
 
 //TIME_UTILS
 
