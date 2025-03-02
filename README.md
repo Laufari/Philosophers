@@ -1,4 +1,4 @@
-# Philosophers
+# Philosophers #"Este proyecto se encuentra actualmente en desarrollo. Se están realizando correcciones y optimizaciones para asegurar su funcionamiento óptimo y cumplir con todos los requisitos establecidos. A medida que avanzamos, se incorporarán mejoras adicionales para finalizar la implementación de manera completa."
 
 Descripción
 Philosophers es una simulación de filósofos sentados alrededor de una mesa con tenedores, 
