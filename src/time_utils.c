@@ -6,14 +6,14 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:19:39 by laufarin          #+#    #+#             */
-/*   Updated: 2025/02/18 16:18:58 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/02/25 20:06:57 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
 
-// Esta función devuelve el tiempo en milisegundos
+//Esta función devuelve el tiempo en milisegundos
 long get_time(void)
 {
     struct timeval time;

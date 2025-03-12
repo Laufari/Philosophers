@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:40:49 by laufarin          #+#    #+#             */
-/*   Updated: 2025/02/24 19:57:42 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/03/12 16:48:23 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,11 @@ void    init_resources(t_resources *resources, char **argv)
 	resources->time_to_die = ft_atoi(argv[2]);
 	resources->time_to_eat = ft_atoi(argv[3]);
 	resources->time_to_sleep = ft_atoi(argv[4]);
+	resources->is_dead = 0;
+	resources->can_eat = 0;
 	
-
+	pthread_mutex_init(&resources->mutex, NULL);
+	pthread_mutex_init(&resources->start_mutex, NULL); 
 	if (argv[5])
 		resources->eat_count = ft_atoi(argv[5]);  // Inicializa eat_count si hay un quinto argumento
 	else

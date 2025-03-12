@@ -6,71 +6,100 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 17:42:08 by laufarin          #+#    #+#             */
-/*   Updated: 2025/02/24 22:18:46 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/03/12 19:40:30 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	*philosopher_life(void *arg)
+void think(t_philosopher *philosopher)
 {
-	t_philosopher *philosopher = (t_philosopher *)arg;// Convertimos el argumento a t_philosopher *
+    // Pensar
+    print_status(philosopher, "is thinking");
+}
+void *philosopher_life(void *arg)
+{
+    t_philosopher *philosopher;
+
+    philosopher = (t_philosopher *)arg;
     
-    while (1)// El ciclo infinito de la vida del filósofo
+    pthread_mutex_lock(&philosopher->resources->start_mutex);
+    while (philosopher->resources->can_eat == 0)
     {
-     //REVISAR ESTO FALTA MODIFICAR PARA PODER PASARLE eat_count 
-   //  if (monitor_philosopher(philosopher,)) // Verifica si murió
-    //        return NULL;
-
-		  printf("%ld Philosopher %d is thinking\n", get_time(), philosopher->id);
-		  usleep(philosopher->resources->time_to_sleep * 1000);//time_to_sleep esta en milisegundo y usleep en microsegundos por eso mult. x 1000
-
-    // Tomar tenedores (bloquear mutexes)
-      if(philosopher->id % 2 == 0)
-      {
-        pthread_mutex_lock(philosopher->left_fork); // Tenedor de la izquierda
-        printf("%ld Philosopher %d has taken left fork\n", get_time(), philosopher->id);
-
-        pthread_mutex_lock(philosopher->right_fork); // Tenedor de la derecha
-        printf("%ld Philosopher %d has taken right fork\n", get_time(), philosopher->id);
-      }
-      else 
-      {
-            pthread_mutex_lock(philosopher->right_fork);  // Lock right fork
-            printf("%ld Philosopher %d has taken right fork\n", get_time(), philosopher->id);
-            pthread_mutex_lock(philosopher->left_fork);   // Lock left fork
-            printf("%ld Philosopher %d has taken left fork\n", get_time(), philosopher->id);
-      }
-    // Comer
-      printf("%ld Philosopher %d is eating\n", get_time(), philosopher->id);
-      usleep(philosopher->resources->time_to_eat * 1000); // Comer durante el tiempo de comer
-
-    // Liberar tenedores (desbloquear mutexes)
-      pthread_mutex_unlock(philosopher->left_fork); // Liberar tenedor de la izquierda
-      pthread_mutex_unlock(philosopher->right_fork); // Liberar tenedor de la derecha
-
-    // Dormir (reposo antes de empezar de nuevo)
-      printf("%ld Philosopher %d is sleeping\n", get_time(), philosopher->id);
-      usleep(philosopher->resources->time_to_sleep * 1000); // Dormir durante el tiempo de dormir
+        pthread_mutex_unlock(&philosopher->resources->start_mutex);
+        usleep(10);
+        pthread_mutex_lock(&philosopher->resources->start_mutex);
     }
-    return NULL;
+    pthread_mutex_unlock(&philosopher->resources->start_mutex);
+
+    pthread_mutex_lock(&philosopher->meal_mutex);
+    philosopher->last_meal_time = get_time();  // Inicializa el tiempo de la última comida
+    pthread_mutex_unlock(&philosopher->meal_mutex);
+
+    
+    if (philosopher->id % 2 == 0)
+        usleep(philosopher->resources->time_to_eat * 500); // Pausa inicial para evitar colisiones
+
+    while (1 )// && philosopher->resources->is_dead == 0)
+    {
+        pthread_mutex_lock(&philosopher->resources->mutex);
+        if (philosopher->resources->is_dead == 1 \
+                && 0 >= pthread_mutex_unlock(&philosopher->resources->mutex))
+            return (NULL);
+        pthread_mutex_unlock(&philosopher->resources->mutex);
+
+        //if (!caneat)
+           // continue ;
+        think(philosopher);         // Pensar
+        take_forks(philosopher);    // Tomar los tenedores
+        eat(philosopher);           // Comer
+        put_down_forks(philosopher); // Soltar los tenedores
+        sleep_philosopher(philosopher); // Dormir
+    }
+    return (NULL);
 }
 
-/*int monitor_philosopher(t_philosopher *philosopher, t_resources *resources)
+int monitor_philosophers(t_philosopher **philosopher, t_resources *resources)
 {
-    long current_time = get_time();
-    if (current_time - philosopher->last_meal_time > philosopher->resources->time_to_die)
-    {
-        printf("%ld Philosopher %d died for time\n", current_time, philosopher->id);
-        return (1); // Indica que el filósofo murió
+    long current_time;
+    int i;
+    long last_meal;
+
+    i = 0;
+    current_time = get_time();
+
+pthread_mutex_lock(&resources->mutex);
+while((*resources).is_dead != 1)
+{
+    pthread_mutex_unlock(&resources->mutex);
+
+    while (i < resources->number_of_philosophers)
+    {   
+        current_time = get_time();
+        pthread_mutex_lock(&philosopher[i]->meal_mutex); // 🔥 Bloquea el acceso
+        last_meal = philosopher[i]->last_meal_time;
+        if(last_meal == -1)
+        {
+            pthread_mutex_unlock(&philosopher[i]->meal_mutex); // 🔥 Desbloquea después
+            continue ;
+        }
+        pthread_mutex_unlock(&philosopher[i]->meal_mutex); // 🔥 Desbloquea después
+
+        pthread_mutex_lock(&resources->mutex);
+        if (current_time - last_meal > resources->time_to_die)
+        {
+            printf("entraaa\n");
+            (*resources).is_dead = 1;
+            pthread_mutex_unlock(&resources->mutex);
+            
+            printf("%ld Philosopher %i died for time\n", current_time, philosopher[i]->id);
+            return (1);
+        }
+        pthread_mutex_unlock(&resources->mutex);
+        i++;
     }
-    if(philosopher->times_eaten > resources->eat_count)//REVISAR ESTA FUNCION HAY QUE ARREGLAR ESTO
-    {
-      printf("%ld Philosopher %d died for eat\n", current_time, philosopher->id);
-        return (1); // Indica que el filósofo murió
-
-
-
-    }
+    usleep(10);
+}
+pthread_mutex_unlock(&resources->mutex);
     return (0);
-}*/
+}

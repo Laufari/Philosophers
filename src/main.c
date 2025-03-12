@@ -6,41 +6,42 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 15:54:24 by laufarin          #+#    #+#             */
-/*   Updated: 2025/02/24 20:31:02 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/03/12 19:22:01 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
+
 int main(int argc, char **argv)
 {
     t_resources resources;
     pthread_t *threads;
     t_philosopher *philos;
+    int i;
 
-    // Primero, valida los argumentos
-    if (parse_args(argc, argv))
+    if (parse_args(argc, argv)) // Validar argumentos
         return (1);
-    // resources = malloc(sizeof(t_resources));
-    //if (!resources) 
-    //{
-      //  printf("Error allocating memory for resources.\n");
-        //return (1);
-    //}
-    // Inicializa los valores en la estructura `resources`
+
     init_resources(&resources, argv);
     init_forks(&resources);
 
-    // 🟢 Reservar memoria antes de crear los filósofos
-    if (mem_hilos(&threads, &philos, &resources) != 0)
+    if (mem_hilos(&threads, &philos, &resources) != 0) // Reservar memoria
         return (1);
-
-    // 🟢 Crear filósofos y sus hilos
-    if (create_philos(&threads, &philos, &resources) != 0)
+    if (create_philos(&threads, &philos, &resources) != 0) // Crear hilos de filósofos
         return (1);
-
-    // 🟢 Liberar memoria al final
-    free_resources(threads, philos, &resources);
-
+    pthread_mutex_lock(&resources.start_mutex);
+    resources.can_eat = 1;
+    pthread_mutex_unlock(&resources.start_mutex);   
+    // 🟢 Monitorear filósofos
+    monitor_philosophers(&philos, &resources);
+        i = 0;
+        while (i < resources.number_of_philosophers)
+        {
+            //printf("test thread[%i]\n",i);
+            pthread_join(threads[i], NULL);
+            i++;
+        }
+    free_resources(threads, philos, &resources); // 🟢 Liberar memoria al final
     return (0);
 }
 
