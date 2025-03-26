@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:40:49 by laufarin          #+#    #+#             */
-/*   Updated: 2025/03/12 16:48:23 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:58:35 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void    init_resources(t_resources *resources, char **argv)
 	resources->time_to_sleep = ft_atoi(argv[4]);
 	resources->is_dead = 0;
 	resources->can_eat = 0;
+	resources->num_philos_full = 0;
 	
 	pthread_mutex_init(&resources->mutex, NULL);
 	pthread_mutex_init(&resources->start_mutex, NULL); 
@@ -43,7 +44,7 @@ int	init_forks(t_resources *resources)
 	i = 0;
 	while(i < resources->number_of_philosophers)
 	{
-		pthread_mutex_init(&resources->forks[i], NULL);
+	//	pthread_mutex_init(&resources->forks[i], NULL);
 		if(pthread_mutex_init(&resources->forks[i], NULL)!= 0)
 		{
 		 	printf("Error initializing mutex for fork %d.\n", i);

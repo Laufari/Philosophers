@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/21 14:57:46 by laufarin          #+#    #+#             */
-/*   Updated: 2025/02/18 16:19:07 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:12:03 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,4 @@ int	ft_atoi(char *str)
 	}
 	return (resultado * sign);
 }
-
+	

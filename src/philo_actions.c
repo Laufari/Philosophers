@@ -23,16 +23,21 @@ void take_forks(t_philosopher *philosopher)
     }
 }
 
-void eat(t_philosopher *philosopher)
+int eat(t_philosopher *philosopher)
 {
-    // Comer
     print_status(philosopher, "is eating");
     pthread_mutex_lock(&philosopher->meal_mutex);
     philosopher->last_meal_time = get_time();
-    printf("Philosopher %d updated last_meal_time to %ld\n", philosopher->id, philosopher->last_meal_time); //para borrar
     pthread_mutex_unlock(&philosopher->meal_mutex);
+    precise_usleep(philosopher->resources->time_to_eat);  
     philosopher->times_eaten++;
-    usleep(philosopher->resources->time_to_eat * 1000); // Tiempo de comer
+    if(philosopher->times_eaten >= philosopher->resources->eat_count)
+    {
+        //printf("finished eating Philo: %i\n", philosopher->id);
+        philosopher->resources->num_philos_full++;
+        return (1);
+    }
+    return (0);
 }
 
 void put_down_forks(t_philosopher *philosopher)
@@ -40,11 +45,16 @@ void put_down_forks(t_philosopher *philosopher)
     // Soltar los tenedores
     pthread_mutex_unlock(philosopher->left_fork);
     pthread_mutex_unlock(philosopher->right_fork);
+   // print_status(philosopher, "Soltar tenedores");
 }
-
+void think(t_philosopher *philosopher)
+{
+    // Pensar
+    print_status(philosopher, "is thinking");
+}
 void sleep_philosopher(t_philosopher *philosopher)
 {
     // Dormir
     print_status(philosopher, "is sleeping");
-    usleep(philosopher->resources->time_to_sleep * 1000); // Tiempo de dormir
+    precise_usleep(philosopher->resources->time_to_sleep); // Convertir a microsegundos
 }

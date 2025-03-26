@@ -26,6 +26,8 @@ typedef struct  s_resources
     pthread_mutex_t print_mutex;     // Mutex para la impresión en consola (para evitar condiciones de carrera)
     pthread_mutex_t mutex;  // Mutex para sincronizar el acceso a recursos compartidos
     pthread_mutex_t start_mutex;
+    pthread_mutex_t full_mutex;
+    t_philosopher *philos;
     int         number_of_philosophers;      // Total de filósofos
     long        time_to_die;                // Tiempo máximo antes de morir por inanición
     long        time_to_eat;                // Tiempo que tarda en comer
@@ -33,14 +35,16 @@ typedef struct  s_resources
     int         eat_count;                  // Número de veces que cada filósofo debe comer (opcional)
     int         is_dead;
     int         can_eat;
+    long        time_init;
+    int         num_philos_full;
 }                       t_resources;
 
 int     is_valid_num(char *str);
 int parse_args(int argc, char **argv);
 void    init_resources(t_resources *resources, char **argv);
-void    free_resources(pthread_t *thr, t_philosopher *phils, t_resources *resources);
-int mem_hilos(pthread_t **threads, t_philosopher **philos, t_resources *resources);
-int create_philos(pthread_t **threads, t_philosopher **philos, t_resources *resources);
+void    free_resources(pthread_t *thr, t_resources *resources);
+int mem_hilos(pthread_t **threads, t_resources *resources);
+int create_philos(pthread_t **threads,/*t_philosopher **philos,*/ t_resources *resources);
 int	init_forks(t_resources *resources);
 void print_status(t_philosopher *philosopher, char *message);
 
@@ -52,16 +56,19 @@ int	is_space(char c);
 //PHILOSOPHERS
 
 void	*philosopher_life(void *arg);
-int monitor_philosophers(t_philosopher **philosopher, t_resources *resources);
+int monitor_philosophers(t_resources *resources);
 
 //TIME_UTILS
 
 long	get_time(void);
+void precise_usleep(long miliseconds);
 
 void take_forks(t_philosopher *philosopher);
-void eat(t_philosopher *philosopher);
+int eat(t_philosopher *philosopher);
 void put_down_forks(t_philosopher *philosopher);
 void sleep_philosopher(t_philosopher *philosopher);
+void think(t_philosopher *philosopher);
+
 
 
 #endif
