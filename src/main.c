@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 15:54:24 by laufarin          #+#    #+#             */
-/*   Updated: 2025/03/26 16:33:18 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/03/31 16:26:00 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int argc, char **argv)
 
     init_resources(&resources, argv);
     init_forks(&resources);
+    init_printmutex(&resources);
     i = 0;
     if (mem_hilos(&threads, &resources)) // Reservar memoria
         return (1);

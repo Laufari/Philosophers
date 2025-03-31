@@ -48,6 +48,8 @@ int create_philos(pthread_t **threads,/*t_philosopher **philos,*/ t_resources *r
 int	init_forks(t_resources *resources);
 void print_status(t_philosopher *philosopher, char *message);
 
+int init_printmutex(t_resources *resources);
+
 //UTILS
 
 int ft_atoi(char *str);

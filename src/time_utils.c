@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 20:19:39 by laufarin          #+#    #+#             */
-/*   Updated: 2025/03/26 16:27:07 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/03/31 15:42:21 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ long get_time(void)
 }
 void precise_usleep(long miliseconds)
 {
-    long init = 0;
-    long elapsed = 0;
+    long init;
+    long elapsed;
 
     // Obtener el tiempo actual
     init = get_time();
