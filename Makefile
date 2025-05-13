@@ -21,8 +21,8 @@ OBJECTS = $(addprefix $(OBJ_DIR), $(SOURCES:.c=.o))
 DEPS = $(OBJECTS:.o=.d)
 
 # Compilador y flags
-CC = gcc
-CFLAGS = -g -Wall -Wextra -Werror -I$(INC_DIR) -MMD -MP #-fsanitize=thread
+CC = cc -g
+CFLAGS = -Wall -Wextra -Werror -I$(INC_DIR) -MMD -MP #-fsanitize=thread
 
 # Colores para los mensajes
 GREEN = \033[1;92m
@@ -34,7 +34,7 @@ RESET = \033[0m
 all: $(NAME)
 
 # Regla para compilar el ejecutable
-$(NAME): $(OBJECTS)
+$(NAME): $(OBJECTS) Makefile
 	@printf "$(GREEN)Compilando el proyecto...\n$(RESET)"
 	@$(CC) $(CFLAGS) $(OBJECTS) -o $(NAME)
 	@printf "$(GREEN)Compilación completa.\n$(RESET)"

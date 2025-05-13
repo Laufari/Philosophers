@@ -70,7 +70,6 @@ int eat(t_philosopher *philosopher);
 void put_down_forks(t_philosopher *philosopher);
 void sleep_philosopher(t_philosopher *philosopher);
 void think(t_philosopher *philosopher);
-
-
-
+void	ft_destroy(t_resources *resources);
+ 
 #endif

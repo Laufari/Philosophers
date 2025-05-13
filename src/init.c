@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 14:40:49 by laufarin          #+#    #+#             */
-/*   Updated: 2025/03/31 17:35:59 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:22:14 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_resources(t_resources *resources, char **argv)
 	resources->num_philos_full = 0;
 	pthread_mutex_init(&resources->mutex, NULL);
 	pthread_mutex_init(&resources->start_mutex, NULL);
+	pthread_mutex_init(&resources->full_mutex, NULL);
 	if (argv[5])
 		resources->eat_count = ft_atoi(argv[5]);
 	else
@@ -39,7 +40,6 @@ int	init_forks(t_resources *resources)
 	if (!resources->forks)
 	{
 		printf("Error allocating memory for forks.\n");
-		//free(resources->forks);
 		return (1);
 	}
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 16:30:23 by laufarin          #+#    #+#             */
-/*   Updated: 2025/03/31 17:43:13 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/05/06 17:20:36 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,16 @@ void	free_resources(pthread_t *threads, t_resources *resources)
 		}
 		free(resources->forks);
 	}
+	ft_destroy(resources);
+}
+
+void	ft_destroy(t_resources *resources)
+{
+	int	i;
+
+	i = 0;
 	if (resources->philos)
 	{
-		i = 0;
 		while (i < resources->number_of_philosophers)
 		{
 			pthread_mutex_destroy(&resources->philos[i].meal_mutex);
@@ -41,5 +48,5 @@ void	free_resources(pthread_t *threads, t_resources *resources)
 	pthread_mutex_destroy(&resources->print_mutex);
 	pthread_mutex_destroy(&resources->mutex);
 	pthread_mutex_destroy(&resources->start_mutex);
-	//pthread_mutex_destroy(&resources->full_mutex);
+	pthread_mutex_destroy(&resources->full_mutex);
 }
