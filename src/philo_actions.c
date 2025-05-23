@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/27 13:43:40 by laufarin          #+#    #+#             */
-/*   Updated: 2025/05/13 16:35:32 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/05/22 15:52:19 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ void	put_down_forks(t_philosopher *philosopher)
 
 int	eat(t_philosopher *philosopher)
 {
-	int	done;
-
-	done = (philosopher->resources->eat_count != -1
-			&& philosopher->times_eaten >= philosopher->resources->eat_count);
 	pthread_mutex_lock(&philosopher->meal_mutex);
 	philosopher->last_meal_time = get_time();
 	pthread_mutex_unlock(&philosopher->meal_mutex);
@@ -50,13 +46,6 @@ int	eat(t_philosopher *philosopher)
 	pthread_mutex_lock(&philosopher->meal_mutex);
 	philosopher->times_eaten++;
 	pthread_mutex_unlock(&philosopher->meal_mutex);
-	if (done)
-	{
-		pthread_mutex_lock(&philosopher->resources->full_mutex);
-		philosopher->resources->num_philos_full++;
-		pthread_mutex_unlock(&philosopher->resources->full_mutex);
-		return (1);
-	}
 	return (0);
 }
 

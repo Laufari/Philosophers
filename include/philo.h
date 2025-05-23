@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 13:11:31 by laufarin          #+#    #+#             */
-/*   Updated: 2025/05/22 11:29:01 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/05/23 15:59:15 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,16 @@ void	print_status(t_philosopher *philosopher, char *message);
 
 int		init_printmutex(t_resources *resources);
 
+void	*handle_single_philosopher(void *arg);
+
 //UTILS
 
 int		ft_atoi(char *str);
 int		is_space(char c);
+
+//UTILS_PHILOS
+
+int		should_stop_execution(t_philosopher *philo);
 
 //PHILOSOPHERS
 

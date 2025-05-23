@@ -11,6 +11,7 @@ INC_DIR = include/
 # Archivos fuente (.c)
 SOURCES = main.c philosophers.c utils.c parse_args.c \
 			time_utils.c mutex_utils.c init.c\
+			single_philo.c utils_philos.c\
 			free_resources.c philos_init.c philo_actions.c
 SRCS = $(addprefix $(SRC_DIR), $(SOURCES))
 

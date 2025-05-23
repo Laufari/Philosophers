@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/05 14:35:21 by laufarin          #+#    #+#             */
-/*   Updated: 2025/05/13 16:16:56 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/05/22 12:24:44 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	parse_args(int argc, char **argv)
 {
 	int	i;
 
-	i = 0;
+	i = 1;
 	if (argc < 5 || argc > 6)
 	{
 		printf("Error: Incorrect number of arguments\n");
