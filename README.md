@@ -30,3 +30,5 @@ Reglas
 Sin variables globales.
 Evitar condiciones de carrera entre filósofos.
 
+Guia proyecto
+file:///home/laufarin/Downloads/Resumen_Filosofos_Comensales.pdf
