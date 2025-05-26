@@ -13,6 +13,7 @@ Lenguaje: C
 Norma: 
 
 El código sigue la norma de programación especificada (sin variables globales).
+
 Compilación: Utiliza Makefile con las reglas make, clean, fclean, re.
 
 **Argumentos**
@@ -27,9 +28,11 @@ time_to_sleep: Tiempo para dormir.
 number_of_times_each_philosopher_must_eat (opcional): Número de veces que cada filósofo debe comer antes de finalizar la simulación.
 
 **Ejemplo de uso**
+
 $ ./philo 5 800 200 200
 
 **Funcionalidad**
+
 Filósofos: Cada filósofo es un hilo que come, piensa y duerme.
 Mutexes: Para evitar que los filósofos compitan por los tenedores.
 Logs: Cada acción de un filósofo se registra con una marca de tiempo.
@@ -55,6 +58,7 @@ Cada filosofo es un hilo. Todos comparten recursos comunes (tenedores, estado de
 protegidos por mutexes para evitar condiciones de carrera.
 
 **main()**
+
 Rol: Punto de entrada del programa.
 Tareas:
 - Valida los argumentos (parse_args).
@@ -72,6 +76,7 @@ Tareas:
 - Verifica si debe detenerse (should_stop_execution).
 - 
 **monitor_philosophers()**
+  
 Rol: Supervisa a todos los filosofos.
 Tareas:
 - Si hay uno solo, espera su muerte.
@@ -83,6 +88,7 @@ get_time(): Devuelve el tiempo actual en milisegundos.
 precise_usleep(): Pausa con mas precision que usleep, comprobando el tiempo real transcurrido.
 
 **should_stop_execution()**
+
 Rol: Decide si un filosofo debe detenerse.
 Tareas:
 - Verifica si alguien murio (is_dead).
@@ -92,11 +98,13 @@ init_all() y start_simulation()
 init_all(): Inicializa los mutexes y reserva memoria para hilos.
 
 **start_simulation():**
+
 - Marca que los filosofos pueden empezar (can_eat).
 - Guarda la hora de inicio.
 - Crea los hilos de cada filosofo (create_philos).
 - 
 **Estructuras**
+  
 t_philosopher:
 - Representa un filosofo (es decir, un hilo).
 - Contiene su estado, tenedores, contador de comidas y acceso a los recursos.
