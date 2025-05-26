@@ -5,13 +5,12 @@ Philosophers es una simulación de filósofos sentados alrededor de una mesa con
 donde cada filósofo puede comer, pensar o dormir, pero no puede hacer más de una actividad a la vez.
 El objetivo es evitar que los filósofos mueran de hambre mientras interactúan entre sí utilizando hilos y mutexes.
 
-**Requisitos**
-Lenguaje: C
+**Requisitos
+Lenguaje: C**
 Norma: El código sigue la norma de programación especificada (sin variables globales).
 Compilación: Utiliza Makefile con las reglas make, clean, fclean, re.
-Argumentos
-**El programa acepta los siguientes argumentos:**
-
+**Argumentos
+El programa acepta los siguientes argumentos:**
 number_of_philosophers: Número de filósofos.
 time_to_die: Tiempo antes de que un filósofo muera si no come.
 time_to_eat: Tiempo para comer.
