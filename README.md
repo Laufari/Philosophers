@@ -1,4 +1,4 @@
-# Philosophers #"
+# Philosophers #
 
 **Descripción**
 Philosophers es una simulación de filósofos sentados alrededor de una mesa con tenedores, 
