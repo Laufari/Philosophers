@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/17 17:42:08 by laufarin          #+#    #+#             */
-/*   Updated: 2025/05/23 16:00:19 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:35:16 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*philosopher_life(void *arg)
 
 	philosopher = (t_philosopher *)arg;
 	if (philosopher->resources->number_of_philosophers == 1)
-		return (handle_single_philosopher(arg));
+		return (handle_single_philosopher(arg), NULL);
 	if (philosopher->id % 2 == 0)
 		precise_usleep(2);
 	if (philosopher->id % 2 == 0)
@@ -41,15 +41,21 @@ static int	check_philo_death(t_resources *res, int i, long current_time)
 	long	last_meal;
 
 	last_meal = res->philos[i].last_meal_time;
-	if ((res->philos[i].times_eaten < res->eat_count)
-		&& current_time - last_meal > res->time_to_die)
+	if (current_time - last_meal > res->time_to_die)
 	{
+		if (res->philos[i].times_eaten == res->eat_count)
+			return (0);
 		pthread_mutex_lock(&res->print_mutex);
 		res->is_dead = 1;
 		printf("%ld %d died\n", current_time - res->time_init,
 			res->philos[i].id);
 		pthread_mutex_unlock(&res->print_mutex);
-		pthread_mutex_unlock(&res->philos[i].meal_mutex);
+		return (1);
+	}
+	else if (res->is_dead == 1)
+	{
+		printf("%ld %d died\n", current_time - res->time_init,
+			res->philos[i].id);
 		return (1);
 	}
 	return (0);
@@ -80,7 +86,10 @@ int	monitor_philosophers(t_resources *resources)
 			pthread_mutex_lock(&resources->philos[i].meal_mutex);
 			current_time = get_time();
 			if (check_philo_death(resources, i, current_time))
+			{
+				pthread_mutex_unlock(&resources->philos[i].meal_mutex);
 				return (1);
+			}
 			pthread_mutex_unlock(&resources->philos[i].meal_mutex);
 			if (check_all_full(resources))
 				return (0);

@@ -12,7 +12,7 @@
 
 #include "../include/philo.h"
 
-void	*handle_single_philosopher(void *arg)
+int	handle_single_philosopher(void *arg)
 {
 	t_philosopher	*philo;
 
@@ -24,5 +24,5 @@ void	*handle_single_philosopher(void *arg)
 	philo->resources->is_dead = 1;
 	pthread_mutex_unlock(&philo->resources->mutex);
 	pthread_mutex_unlock(philo->left_fork);
-	return (NULL);
+	return (0);
 }

@@ -36,16 +36,20 @@ void	put_down_forks(t_philosopher *philosopher)
 	pthread_mutex_unlock(philosopher->right_fork);
 }
 
-int	eat(t_philosopher *philosopher)
+int	eat(t_philosopher *philo)
 {
-	pthread_mutex_lock(&philosopher->meal_mutex);
-	philosopher->last_meal_time = get_time();
-	pthread_mutex_unlock(&philosopher->meal_mutex);
-	print_status(philosopher, "is eating");
-	precise_usleep(philosopher->resources->time_to_eat);
-	pthread_mutex_lock(&philosopher->meal_mutex);
-	philosopher->times_eaten++;
-	pthread_mutex_unlock(&philosopher->meal_mutex);
+	if (should_stop_execution(philo))
+		return (1);
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->last_meal_time = get_time();
+	pthread_mutex_unlock(&philo->meal_mutex);
+	print_status(philo, "is eating");
+	precise_usleep(philo->resources->time_to_eat);
+	if (should_stop_execution(philo))
+		return (1);
+	pthread_mutex_lock(&philo->meal_mutex);
+	philo->times_eaten++;
+	pthread_mutex_unlock(&philo->meal_mutex);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: laufarin <laufarin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 13:11:31 by laufarin          #+#    #+#             */
-/*   Updated: 2025/05/23 15:59:15 by laufarin         ###   ########.fr       */
+/*   Updated: 2025/05/26 13:31:45 by laufarin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	print_status(t_philosopher *philosopher, char *message);
 
 int		init_printmutex(t_resources *resources);
 
-void	*handle_single_philosopher(void *arg);
+int		handle_single_philosopher(void *arg);
 
 //UTILS
 
@@ -85,6 +85,7 @@ void	precise_usleep(long miliseconds);
 
 void	take_forks(t_philosopher *philosopher);
 int		eat(t_philosopher *philosopher);
+//void	put_down_forks(t_philosopher *philo, int fork_status);
 void	put_down_forks(t_philosopher *philosopher);
 void	sleep_philosopher(t_philosopher *philosopher);
 void	think(t_philosopher *philosopher);
