@@ -13,8 +13,9 @@ Norma:
 El código sigue la norma de programación especificada (sin variables globales).
 Compilación: Utiliza Makefile con las reglas make, clean, fclean, re.
 
-**Argumentos
-El programa acepta los siguientes argumentos:**
+**Argumentos**
+
+**El programa acepta los siguientes argumentos:**
 number_of_philosophers: Número de filósofos.
 time_to_die: Tiempo antes de que un filósofo muera si no come.
 time_to_eat: Tiempo para comer.
