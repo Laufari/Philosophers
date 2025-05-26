@@ -69,6 +69,7 @@ Tareas:
 - Espera que terminen los hilos (pthread_join) y libera memoria.
 - 
 **philosopher_life()**
+  
 Rol: Funcion que ejecuta cada filosofo (cada hilo).
 Tareas:
 - Si solo hay un filosofo, maneja el caso especial.
