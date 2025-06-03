@@ -67,7 +67,7 @@ Tareas:
 - Inicia la simulacion (start_simulation).
 - Supervisa si un filosofo muere o si todos han comido (monitor_philosophers).
 - Espera que terminen los hilos (pthread_join) y libera memoria.
-- 
+  
 **philosopher_life()**
   
 Rol: Funcion que ejecuta cada filosofo (cada hilo).
@@ -75,7 +75,7 @@ Tareas:
 - Si solo hay un filosofo, maneja el caso especial.
 - Ciclo infinito: tomar tenedores, comer, soltar, dormir, pensar.
 - Verifica si debe detenerse (should_stop_execution).
-- 
+  
 **monitor_philosophers()**
   
 Rol: Supervisa a todos los filosofos.
@@ -103,7 +103,7 @@ init_all(): Inicializa los mutexes y reserva memoria para hilos.
 - Marca que los filosofos pueden empezar (can_eat).
 - Guarda la hora de inicio.
 - Crea los hilos de cada filosofo (create_philos).
-- 
+  
 **Estructuras**
   
 t_philosopher:
@@ -115,4 +115,6 @@ t_resources:
  - Tiempos (time_to_die, etc.)
  - Contadores globales
  - Todos los mutexes
+
+ - LAURA FARINA
 
